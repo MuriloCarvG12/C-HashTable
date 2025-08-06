@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.27)
+project(untitled6 C)
+
+set(CMAKE_C_STANDARD 11)
+
+add_executable(untitled6 main.c
+        hash_table.c
+        hash_table.h
+)
