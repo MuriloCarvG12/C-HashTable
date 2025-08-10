@@ -1,5 +1,4 @@
 //
-
 // Created by Murilo on 06/08/2025.
 //
 
@@ -8,8 +7,6 @@
 
 #include "stdio.h"
 #include <malloc.h>
-
-
 
 typedef struct table_node
 {

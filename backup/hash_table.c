@@ -1,4 +1,10 @@
 //
+// Created by Murilo on 06/08/2025.
+//
+
+#include "hash_table.h"
+
+//
 // Created by Murilo on 05/08/2025.
 //
 
@@ -7,7 +13,6 @@
 
 hash_table initiliaze_table(int table_size)
 {
-
         hash_table *new_hash_table = malloc(sizeof(hash_table));
         new_hash_table->table_indexes = malloc(sizeof(table_node) * table_size);
 
@@ -32,39 +37,42 @@ int Hash_Func(int value, int table_size)
         return index;
 }
 
-void insert_table_node(int value, int table_size, hash_table *ht) {
+void insert_table_node(int value, int table_size, hash_table *ht)
+{
+        int depth = 0;
+        int index = Hash_Func(value, table_size);
 
-    int depth = 0;
-    int index = Hash_Func(value, table_size);
-
-    table_node **current_table_array = ht->table_indexes;
-    if (current_table_array[index] == NULL) {
-        table_node *new_node = malloc(sizeof(table_node));
-        new_node->node_value = value;
-        new_node->node_below = NULL;
-        current_table_array[index] = new_node;
-        printf("Inserting node %d at index %d at depth %d\n", value, index, depth);
-        printf("\n");
-    } else {
-        table_node *aux_pointer = current_table_array[index];
-        while (aux_pointer->node_below != NULL) {
-
-            aux_pointer = aux_pointer->node_below;
-            printf("moving below\n");
-            depth = depth + 1;
+        table_node **current_table_array = ht->table_indexes;
+        if(current_table_array[index] == NULL)
+        {
+            table_node *new_node = malloc(sizeof(table_node));
+            new_node->node_value = value;
+            new_node->node_below = NULL;
+            current_table_array[index] = new_node;
+            printf("Inserting node %d at index %d at depth %d\n", value, index, depth);
+            printf("\n");
         }
-        table_node *new_node = malloc(sizeof(table_node));
-        new_node->node_value = value;
-        new_node->node_below = NULL;
-        aux_pointer->node_below = new_node;
-        printf("Inserting node %d at index %d at depth %d\n", value, index, depth);
-        printf("\n");
-    }
+        else
+        {
+            table_node *aux_pointer = current_table_array[index];
+            while(aux_pointer->node_below != NULL)
+            {
+
+                aux_pointer = aux_pointer->node_below;
+                printf("moving below\n");
+                depth = depth + 1;
+            }
+            table_node *new_node = malloc(sizeof(table_node));
+            new_node->node_value = value;
+            new_node->node_below = NULL;
+            aux_pointer->node_below  = new_node;
+            printf("Inserting node %d at index %d at depth %d\n", value, index, depth);
+            printf("\n");
+        }
 }
 
 void print_table(hash_table *ht)
 {
-
         table_node **current_table_array = ht->table_indexes;
         int table_size = ht->table_size;
 
@@ -224,4 +232,3 @@ void index_clear(int index, hash_table *hash_table)
     clear_table_index(current_node);
     current_table_array[index] = NULL;
 }
-

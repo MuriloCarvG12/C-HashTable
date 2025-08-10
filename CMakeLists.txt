@@ -6,3 +6,4 @@ set(CMAKE_C_STANDARD 11)
 add_executable(HashTables main.c
         hash_table.c
         hash_table.h)
+
